@@ -10,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   deploy:
     environment:
@@ -18,16 +22,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4   # ✅ updated to v4
+        uses: actions/checkout@v4   # ✅ latest checkout
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2   # ✅ updated to v2
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3   # ✅ NEW version, no v2 or v1
         with:
-          path: .   # this means root folder with index.html
+          path: .   # make sure index.html is at repo root
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4   # ✅ updated to v4
+        uses: actions/deploy-pages@v4   # ✅ latest deploy action
+
 
 
 
